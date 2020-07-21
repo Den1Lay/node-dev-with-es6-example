@@ -11,9 +11,12 @@ var _debug = _interopRequireDefault(require("debug"));
 
 var _http = _interopRequireDefault(require("http"));
 
+var _socket = _interopRequireDefault(require("socket.io"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var debug = (0, _debug["default"])('myapp:server');
+process.title = 'myApp';
 /**
  * Get port from environment and store in Express.
  */
@@ -37,6 +40,12 @@ server.listen(port, function () {
 });
 server.on('error', onError);
 server.on('listening', onListening);
+var io = (0, _socket["default"])(server);
+io.on('connection', function (socket) {
+  socket.on('npmStop', function () {
+    process.exit(0);
+  });
+});
 /**
  * Normalize a port into a number, string, or false.
  */

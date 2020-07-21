@@ -8,18 +8,21 @@ import dotenv from 'dotenv'
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 
-dotenv.config()
+dotenv.config();
 
-var app = express();
+// const superData = {
+//   redux: 'included',
+//   iphone: 'fack',
+// }
 
-app.use(cors())
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use('*',express.static(path.resolve(__dirname, '..', '..', 'client', 'build')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+var app = express();    
+app
+  .use(cors())
+  .use(logger('dev'))
+  .use(express.json())
+  .use(express.urlencoded())
+  .get('*',express.static(path.resolve(__dirname, '..', '..', 'client', 'build')))
+  .use('/', indexRouter)
+  .use('/users', usersRouter)
 
 export default app;

@@ -16,16 +16,28 @@
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.1"
+    "npm-watch": "^0.6.0",
+    "rimraf": "^3.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "onchange": "^7.0.2",
+    "watch": "^1.0.2",
+    "watchify": "^3.11.1"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
+    ]
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "./src/*"
     ]
   },
   "scripts": {
@@ -35,6 +47,8 @@
     "dev": "npm-run-all build server",
     "prod": "npm-run-all build server",
     "transpile": "babel ./src --out-dir dist",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "stop": "node server.stop.js",
+    "dev-restart": "watch \"run-p stop dev\" src"
   }
 }

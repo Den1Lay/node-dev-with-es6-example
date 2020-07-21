@@ -7,9 +7,10 @@
  import app from '../app';
  import debugLib from 'debug';
  import http from 'http';
+ import socketServer from 'socket.io';
 
 var debug = debugLib('myapp:server');
-
+process.title = 'myApp';
 /**
  * Get port from environment and store in Express.
  */
@@ -31,6 +32,13 @@ server.listen(port, () => console.log(`Listen ${port} port`));
 server.on('error', onError);
 server.on('listening', onListening);
 
+
+const io = socketServer(server);
+io.on('connection', socket => {
+  socket.on('npmStop', () => {
+    process.exit(0);
+  })
+})
 /**
  * Normalize a port into a number, string, or false.
  */

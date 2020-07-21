@@ -17,9 +17,10 @@ router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'World'
   });
-});
-router.get('/staff', function (req, res) {
-  res.send('Wellcom on staff');
+}).get('/staff', function (req, res) {
+  res.json({
+    go: "AWAY!"
+  });
 });
 var _default = router;
 exports["default"] = _default;

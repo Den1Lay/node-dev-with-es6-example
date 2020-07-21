@@ -23,18 +23,13 @@ var _users = _interopRequireDefault(require("./routes/users"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-_dotenv["default"].config();
+_dotenv["default"].config(); // const superData = {
+//   redux: 'included',
+//   iphone: 'fack',
+// }
+
 
 var app = (0, _express["default"])();
-app.use((0, _cors["default"])());
-app.use((0, _morgan["default"])('dev'));
-app.use(_express["default"].json());
-app.use(_express["default"].urlencoded({
-  extended: false
-}));
-app.use((0, _cookieParser["default"])());
-app.use('*', _express["default"]["static"](_path["default"].resolve(__dirname, '..', '..', 'client', 'build')));
-app.use('/', _index["default"]);
-app.use('/users', _users["default"]);
+app.use((0, _cors["default"])()).use((0, _morgan["default"])('dev')).use(_express["default"].json()).use(_express["default"].urlencoded()).get('*', _express["default"]["static"](_path["default"].resolve(__dirname, '..', '..', 'client', 'build'))).use('/', _index["default"]).use('/users', _users["default"]);
 var _default = app;
 exports["default"] = _default;
